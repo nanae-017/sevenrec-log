@@ -918,11 +918,12 @@ async function _getSyncedBlockChildren(block: Block): Promise<Block[]> {
 
 function _validPageObject(pageObject: responses.PageObject): boolean {
   const prop = pageObject.properties
+  const slug_id = String(prop.Slug.formula.string)
+
   return (
     !!prop.Page.title &&
     prop.Page.title.length > 0 &&
-    !!prop.Slug.rich_text &&
-    prop.Slug.rich_text.length > 0 &&
+    !!slug_id &&
     !!prop.Date.date
   )
 }
@@ -979,8 +980,8 @@ function _buildPost(pageObject: responses.PageObject): Post {
       : '',
     Icon: icon,
     Cover: cover,
-    Slug: prop.Slug.rich_text
-      ? prop.Slug.rich_text.map((richText) => richText.plain_text).join('')
+    Slug: prop.Slug.formula.string
+      ? String(prop.Slug.formula.string)
       : '',
     Date: prop.Date.date ? prop.Date.date.start : '',
     Tags: prop.Tags.multi_select ? prop.Tags.multi_select : [],
