@@ -43,4 +43,7 @@ export default defineConfig({
     FeaturedImageDownloader(),
     PublicNotionCopier(),
   ],
+  markdown: {
+    syntaxHighlight: false,
+  },
 });
